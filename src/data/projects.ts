@@ -8,6 +8,7 @@ export type ProjectTag =
   | 'Microservices'
   | 'Agentic AI'
   | 'Real-time'
+  | 'Systems'
   | 'Fundamentals';
 
 export interface Project {
@@ -27,6 +28,12 @@ export interface Project {
   icon: string;
   /** Marks AI/agentic projects (used by the "AI" nav + filter accents). */
   isAI?: boolean;
+  /**
+   * Release status. A project is treated as live only when this is exactly 'live';
+   * omit it (or set 'coming-soon') while the repo isn't public yet, and the UI shows a
+   * "Coming soon" badge and disables its links. To launch a project, flip this to 'live'.
+   */
+  status?: 'live' | 'coming-soon';
 }
 
 const GH = 'https://github.com/guptaumang769';
@@ -48,9 +55,9 @@ export const projects: Project[] = [
     tags: ['Fundamentals'],
     tech: ['Spring Boot', 'PostgreSQL', 'Redis', 'Kafka'],
     repoUrl: `${GH}/book-my-show-backend`,
-    demoUrl: `${GH}/bookmyshow-dashboard`,
-    demoLabel: 'Dashboard',
+    // demoUrl/demoLabel re-added once the bookmyshow-dashboard repo is public.
     icon: '🎬',
+    status: 'live',
   },
   {
     id: 'url-shortener',
@@ -189,6 +196,78 @@ export const projects: Project[] = [
     repoUrl: `${GH}/portfolio-mcp-server`,
     icon: '🔌',
     isAI: true,
+  },
+  {
+    id: 'chat-system',
+    title: 'Chat System',
+    pitch:
+      'WhatsApp-style messaging: WebSocket fan-out, presence, delivery/read receipts.',
+    problem:
+      'Real-time chat has to feel instant across many connection servers: a message must reach the recipient even when their socket lives on a different node, arrive exactly once and in order, and show the right SENT → DELIVERED → READ state.',
+    approach: [
+      'WebSocket/STOMP for the live channel, with per-user queues for 1:1 and group conversations.',
+      'Fan-out via a transactional Outbox → Kafka so per-conversation ordering survives crashes; Redis pub/sub delivers to a recipient whose socket is on another server (the multi-node fan-out problem).',
+      'Redis-backed presence (online / last-seen) with a TTL heartbeat.',
+      'Idempotent delivery + read receipts, offline catch-up, and keyset-paginated history.',
+    ],
+    tags: ['Systems', 'Real-time'],
+    tech: ['WebSocket', 'Kafka', 'Redis', 'PostgreSQL'],
+    repoUrl: `${GH}/chat-system`,
+    icon: '💬',
+  },
+  {
+    id: 'notification-system',
+    title: 'Notification System',
+    pitch:
+      'Multi-channel pub/sub: idempotent delivery, retries, DLQ, scheduled sends.',
+    problem:
+      'A notification platform fans one event out to email, SMS, and push — asynchronously, at least once, but never twice — while respecting user preferences and rate limits, and surviving flaky downstream providers.',
+    approach: [
+      'Pub/sub ingestion: the API publishes per-channel events to Kafka and returns immediately; delivery happens off the request path.',
+      'Idempotency via Redis SETNX + a DB unique key gives effectively-once delivery on top of at-least-once Kafka.',
+      'Strategy-pattern channel senders (Email / SMS / Push) with template rendering, preference opt-out, and Redis rate limiting.',
+      'Retry with backoff, a dead-letter topic for poison messages, and a scheduler for delayed/scheduled sends.',
+    ],
+    tags: ['Systems'],
+    tech: ['Kafka', 'Redis', 'PostgreSQL', 'Spring Boot'],
+    repoUrl: `${GH}/notification-system`,
+    icon: '🔔',
+  },
+  {
+    id: 'video-streaming',
+    title: 'Video Streaming',
+    pitch:
+      'YouTube-lite: async transcode pipeline, rendition ladder, view counting at scale.',
+    problem:
+      'Video upload is CPU-heavy and bursty, and view counts are a write-amplification trap — incrementing a row per play melts the database on a viral video.',
+    approach: [
+      'Upload returns a (mock) presigned URL; an uploaded-signal kicks off an async transcode pipeline over Kafka.',
+      'A transcode worker fans the source into a 240p–1080p rendition ladder and advances a video state machine (UPLOADED → PROCESSING → READY / FAILED), idempotent on redelivery.',
+      'View counting buffers in Redis (atomic HINCRBY) and a scheduled flusher folds deltas into the durable count — dodging the hot-key write problem.',
+      'S3 / CDN / transcoder sit behind interfaces (→ S3, MediaConvert, CloudFront); DLT handles poison messages.',
+    ],
+    tags: ['Systems'],
+    tech: ['Kafka', 'Redis', 'PostgreSQL', 'S3/CDN'],
+    repoUrl: `${GH}/video-streaming`,
+    icon: '🎥',
+  },
+  {
+    id: 'collab-docs',
+    title: 'Collaborative Docs',
+    pitch:
+      'Google-Docs-style editor: Operational Transformation + server reconciliation.',
+    problem:
+      'When two people edit the same text at the same time, naive edits diverge. The system must transform concurrent operations so every client converges on identical content — the hard, well-studied heart of collaborative editing.',
+    approach: [
+      'A real Operational Transformation engine (insert/delete) whose transform() upholds convergence (TP1), including tie-breaks and overlapping deletes.',
+      'Server reconciliation (the ShareDB / Google Wave model): a client op tagged with its base revision is folded forward through every op committed since, then applied and broadcast.',
+      'WebSocket/STOMP edit + cursor channels, with cross-node fan-out via Redis pub/sub and TTL presence.',
+      'Op-log + snapshot persistence; the OT engine is fuzz-verified for convergence over ~1,900 op pairs.',
+    ],
+    tags: ['Systems', 'Real-time'],
+    tech: ['WebSocket', 'Redis', 'PostgreSQL', 'OT'],
+    repoUrl: `${GH}/collab-docs`,
+    icon: '📝',
   },
   {
     id: 'java-lld-mastery',

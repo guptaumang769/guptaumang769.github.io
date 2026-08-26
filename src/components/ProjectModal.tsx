@@ -90,23 +90,31 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         </div>
 
         <div className="modal-links">
-          <a
-            className="btn primary"
-            href={project.repoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <ExternalIcon /> Repo
-          </a>
-          {project.demoUrl && (
-            <a
-              className="btn"
-              href={project.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ExternalIcon /> {project.demoLabel ?? 'Live demo'}
-            </a>
+          {project.status === 'live' ? (
+            <>
+              <a
+                className="btn primary"
+                href={project.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ExternalIcon /> Repo
+              </a>
+              {project.demoUrl && (
+                <a
+                  className="btn"
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalIcon /> {project.demoLabel ?? 'Live demo'}
+                </a>
+              )}
+            </>
+          ) : (
+            <span className="btn disabled" aria-disabled="true" title="Repository publishing soon">
+              🚧 Coming soon
+            </span>
           )}
         </div>
       </motion.div>
