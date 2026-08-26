@@ -1,0 +1,52 @@
+import { motion, useReducedMotion } from 'framer-motion';
+import type { Project } from '../data/projects';
+
+interface ProjectCardProps {
+  project: Project;
+  onOpen: (project: Project) => void;
+}
+
+export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
+  const { title, pitch, tech, isAI, icon } = project;
+  const reduce = useReducedMotion();
+
+  return (
+    <motion.button
+      type="button"
+      layout
+      initial={reduce ? false : { opacity: 0, scale: 0.94 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={reduce ? undefined : { opacity: 0, scale: 0.94 }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
+      whileHover={reduce ? undefined : { y: -4 }}
+      whileTap={reduce ? undefined : { scale: 0.98 }}
+      className={`card${isAI ? ' ai' : ''}`}
+      onClick={() => onOpen(project)}
+      aria-label={`${title} — open details`}
+    >
+      <div className="card-head">
+        <span className="card-icon" aria-hidden="true">
+          {icon}
+        </span>
+        <h3 className="card-title">{title}</h3>
+        {isAI && (
+          <span className="ai-badge" aria-label="AI system">
+            AI
+          </span>
+        )}
+      </div>
+
+      <p className="card-pitch">{pitch}</p>
+
+      <div className="badges" aria-label="Tech stack">
+        {tech.map((t) => (
+          <span key={t} className="badge">
+            {t}
+          </span>
+        ))}
+      </div>
+
+      <span className="card-cta">View details →</span>
+    </motion.button>
+  );
+}
