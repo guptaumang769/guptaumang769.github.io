@@ -62,11 +62,6 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             {project.icon}
           </span>
           <h2 id="modal-title">{project.title}</h2>
-          {project.isAI && (
-            <span className="ai-badge" aria-label="AI system">
-              AI
-            </span>
-          )}
         </div>
         <p className="pitch">{project.pitch}</p>
 

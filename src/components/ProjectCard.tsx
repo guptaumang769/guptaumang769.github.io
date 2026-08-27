@@ -7,7 +7,7 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
-  const { title, pitch, tech, isAI, icon } = project;
+  const { title, pitch, tech, icon } = project;
   const isLive = project.status === 'live';
   const reduce = useReducedMotion();
 
@@ -21,7 +21,7 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
       transition={{ duration: 0.25, ease: 'easeOut' }}
       whileHover={reduce ? undefined : { y: -4 }}
       whileTap={reduce ? undefined : { scale: 0.98 }}
-      className={`card${isAI ? ' ai' : ''}`}
+      className="card"
       onClick={() => onOpen(project)}
       aria-label={`${title} — open details`}
     >
@@ -33,11 +33,6 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
         {!isLive && (
           <span className="soon-badge" aria-label="Coming soon">
             Soon
-          </span>
-        )}
-        {isAI && (
-          <span className="ai-badge" aria-label="AI system">
-            AI
           </span>
         )}
       </div>
