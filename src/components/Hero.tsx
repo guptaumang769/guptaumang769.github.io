@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { GitHubIcon, LinkedInIcon } from './icons';
-import { GITHUB_URL, LINKEDIN_URL } from './Nav';
+import { GitHubIcon, LeetCodeIcon, LinkedInIcon } from './icons';
+import { GITHUB_URL, LEETCODE_URL, LINKEDIN_URL } from './Nav';
 
-// Résumé PDF lives in public/ and is served at the site root. BASE_URL keeps
-// the link correct whether the site is deployed at "/" or "/portfolio-site/".
-const RESUME_URL = `${import.meta.env.BASE_URL}Umang-Gupta-Resume.pdf`;
+// Résumé is published separately (its own GitHub Pages repo) so it always
+// reflects the latest version without redeploying this site.
+const RESUME_URL = 'https://guptaumang769.github.io/resume/Umang_Gupta_Resume.pdf';
 
 const ROLES = [
   'Backend Engineer',
   'Distributed Systems',
-  'Agentic AI Builder',
   'Microservices',
+  'Cloud & Kubernetes',
 ];
 
 /** Typewriter cycling through ROLES. Falls back to a static line if
@@ -78,11 +78,11 @@ export default function Hero() {
       >
         <motion.span className="eyebrow" variants={item}>
           <span className="dot" aria-hidden="true" />
-          Backend + Agentic AI · open to work
+          Senior Backend Engineer · open to work
         </motion.span>
 
         <motion.h1 variants={item}>
-          Backend + Agentic AI, built to <span className="brace">{'{ship}'}</span>
+          Backend systems, built to <span className="brace">{'{ship}'}</span>
         </motion.h1>
 
         <motion.p className="role-line" variants={item} aria-live="polite">
@@ -91,10 +91,10 @@ export default function Hero() {
         </motion.p>
 
         <motion.p className="intro" variants={item}>
-          I&apos;m Umang Gupta. I build production-style backend systems —
-          event-driven microservices, real-time platforms, and AI agents that
-          call real APIs. Each project below ships with its source, and a live UI
-          where one exists.
+          I&apos;m Umang Gupta, a senior backend engineer with 7+ years building
+          production-style systems — event-driven microservices, real-time
+          platforms, and distributed data stores on AWS and Kubernetes. Each
+          project below ships with its source, and a live UI where one exists.
         </motion.p>
 
         <motion.nav className="hero-links" variants={item} aria-label="Primary actions">
@@ -109,6 +109,9 @@ export default function Hero() {
           </a>
           <a className="btn" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
             <LinkedInIcon /> LinkedIn
+          </a>
+          <a className="btn" href={LEETCODE_URL} target="_blank" rel="noopener noreferrer">
+            <LeetCodeIcon /> LeetCode
           </a>
         </motion.nav>
       </motion.div>

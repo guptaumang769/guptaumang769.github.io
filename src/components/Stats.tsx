@@ -9,10 +9,10 @@ interface StatDef {
 }
 
 const STATS: StatDef[] = [
-  { value: 13, label: 'projects' },
-  { value: 3, label: 'AI systems' },
-  { value: 18, label: 'concept guides' },
+  { value: 7, suffix: '+', label: 'yrs experience' },
+  { value: 8, label: 'projects' },
   { value: 40, suffix: '+', label: 'services / datastores' },
+  { value: 990, suffix: '+', label: 'tenants served' },
 ];
 
 function StatItem({ stat, active }: { stat: StatDef; active: boolean }) {
