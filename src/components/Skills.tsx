@@ -20,7 +20,6 @@ const CORE: CoreSkill[] = [
   { name: 'Redis', note: 'caching & locks', level: 82 },
   { name: 'Kubernetes', note: 'containers & deploy', level: 72 },
   { name: 'AWS', note: 'cloud infra', level: 70 },
-  { name: 'Spring AI', note: 'agents & MCP', level: 78 },
   { name: 'React / TypeScript', note: 'this site + UIs', level: 68 },
 ];
 
@@ -34,7 +33,7 @@ const TOOLING = [
   'Resilience4j',
   'Eureka',
   'gRPC / REST',
-  'MCP',
+  'Apache Pulsar',
   'SSE',
 ];
 

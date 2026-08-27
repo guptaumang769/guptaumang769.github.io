@@ -6,7 +6,6 @@
 
 export type ProjectTag =
   | 'Microservices'
-  | 'Agentic AI'
   | 'Real-time'
   | 'Systems'
   | 'Fundamentals';
@@ -26,8 +25,6 @@ export interface Project {
   demoLabel?: string;
   /** Emoji or short glyph used as the card icon. */
   icon: string;
-  /** Marks AI/agentic projects (used by the "AI" nav + filter accents). */
-  isAI?: boolean;
   /**
    * Release status. A project is treated as live only when this is exactly 'live';
    * omit it (or set 'coming-soon') while the repo isn't public yet, and the UI shows a
@@ -138,66 +135,6 @@ export const projects: Project[] = [
     icon: '🚕',
   },
   {
-    id: 'bookmyshow-ai-concierge',
-    title: 'BookMyShow AI Concierge',
-    pitch: 'AI agent: tool-calling into the BookMyShow APIs + RAG + memory.',
-    problem:
-      'A booking backend is powerful but unfriendly — users want to just ask "what is playing near me tonight and book two seats" in plain language, and get it done without navigating forms.',
-    approach: [
-      'A Spring AI agent that tool-calls directly into the BookMyShow backend APIs (search shows, check seats, reserve, confirm).',
-      'RAG over movie/venue/FAQ content grounds answers so the model recommends from real data, not hallucinations.',
-      'Conversation memory keeps context across turns so follow-ups ("make it Saturday instead") resolve naturally.',
-      'The LLM plans which tools to call and in what order, turning free-form intent into concrete API actions.',
-    ],
-    tags: ['Agentic AI'],
-    tech: ['Spring AI', 'RAG', 'tools'],
-    repoUrl: `${GH}/bookmyshow-ai-concierge`,
-    demoUrl: `${GH}/bookmyshow-ai-concierge-ui`,
-    demoLabel: 'Chat',
-    icon: '🤖',
-    isAI: true,
-  },
-  {
-    id: 'uber-ai-assistant',
-    title: 'Uber AI Assistant',
-    pitch:
-      'AI agent over the Uber APIs: fare, nearby drivers, request/track rides.',
-    problem:
-      'The ride platform exposes a dozen services, but a rider just wants to say "get me a cab to the airport, how much and how far out is it?" and have the agent orchestrate the calls.',
-    approach: [
-      'A Spring AI agent exposes the Uber platform as callable tools — fare estimate, nearby drivers, request ride, track ride.',
-      'The model decomposes a natural-language request into the right sequence of tool calls.',
-      'Memory tracks the active ride so status questions and cancellations map to the correct trip.',
-      'Responses fold live data (ETA, driver position, price) back into a plain-language reply.',
-    ],
-    tags: ['Agentic AI'],
-    tech: ['Spring AI', 'tools', 'memory'],
-    repoUrl: `${GH}/uber-ai-assistant`,
-    demoUrl: `${GH}/uber-ai-assistant-ui`,
-    demoLabel: 'Chat',
-    icon: '🧭',
-    isAI: true,
-  },
-  {
-    id: 'portfolio-mcp-server',
-    title: 'Portfolio MCP Server',
-    pitch:
-      'MCP server: 10 tools exposing both backends to any model (Claude Desktop).',
-    problem:
-      'Each AI assistant was bespoke. To let any model — Claude Desktop, other MCP clients — drive the BookMyShow and Uber backends, the capabilities need to be exposed through a single standard protocol.',
-    approach: [
-      'A Model Context Protocol (MCP) server that publishes 10 tools spanning both the BookMyShow and Uber backends.',
-      'Any MCP-compatible client (e.g. Claude Desktop) can discover and invoke the tools — no assistant-specific glue.',
-      'Built on Spring AI\'s MCP support so tool schemas, arguments, and results are typed and validated.',
-      'Turns two full backend platforms into a reusable, model-agnostic capability layer.',
-    ],
-    tags: ['Agentic AI'],
-    tech: ['Spring AI', 'MCP'],
-    repoUrl: `${GH}/portfolio-mcp-server`,
-    icon: '🔌',
-    isAI: true,
-  },
-  {
     id: 'chat-system',
     title: 'Chat System',
     pitch:
@@ -250,41 +187,5 @@ export const projects: Project[] = [
     tech: ['Kafka', 'Redis', 'PostgreSQL', 'S3/CDN'],
     repoUrl: `${GH}/video-streaming`,
     icon: '🎥',
-  },
-  {
-    id: 'collab-docs',
-    title: 'Collaborative Docs',
-    pitch:
-      'Google-Docs-style editor: Operational Transformation + server reconciliation.',
-    problem:
-      'When two people edit the same text at the same time, naive edits diverge. The system must transform concurrent operations so every client converges on identical content — the hard, well-studied heart of collaborative editing.',
-    approach: [
-      'A real Operational Transformation engine (insert/delete) whose transform() upholds convergence (TP1), including tie-breaks and overlapping deletes.',
-      'Server reconciliation (the ShareDB / Google Wave model): a client op tagged with its base revision is folded forward through every op committed since, then applied and broadcast.',
-      'WebSocket/STOMP edit + cursor channels, with cross-node fan-out via Redis pub/sub and TTL presence.',
-      'Op-log + snapshot persistence; the OT engine is fuzz-verified for convergence over ~1,900 op pairs.',
-    ],
-    tags: ['Systems', 'Real-time'],
-    tech: ['WebSocket', 'Redis', 'PostgreSQL', 'OT'],
-    repoUrl: `${GH}/collab-docs`,
-    icon: '📝',
-  },
-  {
-    id: 'java-lld-mastery',
-    title: 'Java LLD Mastery',
-    pitch:
-      'OOP, 22 GoF patterns, concurrency, 33 LLD interview problems — all runnable Java.',
-    problem:
-      'Low-level design knowledge is easy to read about and hard to actually wield. Most resources are diagrams and prose with no runnable code to test your understanding against.',
-    approach: [
-      'Full coverage of OOP fundamentals and all 22 Gang-of-Four design patterns, each as a self-contained runnable example.',
-      'A concurrency track covering threads, locks, and common synchronization patterns hands-on.',
-      '33 classic LLD interview problems worked end to end in real Java.',
-      'Structured as a learning repo you can clone, run, and extend rather than just read.',
-    ],
-    tags: ['Fundamentals'],
-    tech: ['Java', 'Design Patterns', 'Concurrency'],
-    repoUrl: `${GH}/java-lld-mastery`,
-    icon: '📚',
   },
 ];

@@ -4,7 +4,6 @@ export type Filter =
   | 'All'
   | 'Microservices'
   | 'Systems'
-  | 'Agentic AI'
   | 'Real-time'
   | 'Fundamentals';
 
@@ -12,7 +11,6 @@ export const FILTERS: Filter[] = [
   'All',
   'Microservices',
   'Systems',
-  'Agentic AI',
   'Real-time',
   'Fundamentals',
 ];

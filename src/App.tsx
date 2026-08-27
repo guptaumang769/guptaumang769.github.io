@@ -7,6 +7,7 @@ import Reveal from './components/Reveal';
 import FilterTabs, { type Filter } from './components/FilterTabs';
 import ProjectCard from './components/ProjectCard';
 import ProjectModal from './components/ProjectModal';
+import Experience from './components/Experience';
 import Skills from './components/Skills';
 import About from './components/About';
 import Footer from './components/Footer';
@@ -28,8 +29,6 @@ export default function App() {
     [filter],
   );
 
-  const aiProjects = useMemo(() => projects.filter((p) => p.isAI), []);
-
   return (
     <>
       <Nav theme={theme} onToggleTheme={toggleTheme} />
@@ -45,7 +44,7 @@ export default function App() {
               Selected <span className="brace">{'{work}'}</span>
             </h2>
             <p className="section-sub">
-              Thirteen production-style systems. Click any card for the problem,
+              Production-style backend systems. Click any card for the problem,
               approach, and links.
             </p>
           </Reveal>
@@ -64,28 +63,7 @@ export default function App() {
           </motion.div>
         </section>
 
-        {/* ---------- AI systems ---------- */}
-        <section className="section" id="ai">
-          <Reveal>
-            <h2 className="section-title">
-              Agentic <span className="brace">{'{AI}'}</span>
-            </h2>
-            <p className="section-sub">
-              LLM agents that tool-call into the backends above — plus an MCP
-              server that exposes them to any model.
-            </p>
-          </Reveal>
-          <div className="project-grid">
-            {aiProjects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onOpen={setSelected}
-              />
-            ))}
-          </div>
-        </section>
-
+        <Experience />
         <Skills />
         <About />
         <Footer />
