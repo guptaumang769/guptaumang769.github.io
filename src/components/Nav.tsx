@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import type { Theme } from '../hooks/useTheme';
-import { GitHubIcon, LinkedInIcon, MoonIcon, SunIcon } from './icons';
+import { GitHubIcon, LeetCodeIcon, LinkedInIcon, MoonIcon, SunIcon } from './icons';
 
-// PLACEHOLDER: replace with your real LinkedIn profile URL.
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/umang1395/';
 export const GITHUB_URL = 'https://github.com/guptaumang769';
+export const LEETCODE_URL = 'https://leetcode.com/u/umang_g/';
 
 interface NavProps {
   theme: Theme;
@@ -13,7 +13,7 @@ interface NavProps {
 
 const links = [
   { label: 'Projects', href: '#projects' },
-  { label: 'AI', href: '#ai' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Skills', href: '#skills' },
   { label: 'About', href: '#about' },
 ];
@@ -69,6 +69,16 @@ export default function Nav({ theme, onToggleTheme }: NavProps) {
             aria-label="LinkedIn profile"
           >
             <LinkedInIcon />
+          </a>
+
+          <a
+            className="icon-btn"
+            href={LEETCODE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LeetCode profile"
+          >
+            <LeetCodeIcon />
           </a>
         </div>
       </div>

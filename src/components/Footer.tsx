@@ -1,4 +1,4 @@
-import { GITHUB_URL, LINKEDIN_URL } from './Nav';
+import { GITHUB_URL, LEETCODE_URL, LINKEDIN_URL } from './Nav';
 
 export default function Footer() {
   const scrollTop = () =>
@@ -12,6 +12,9 @@ export default function Footer() {
         </a>
         <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
           LinkedIn
+        </a>
+        <a href={LEETCODE_URL} target="_blank" rel="noopener noreferrer">
+          LeetCode
         </a>
         <button className="back-to-top" onClick={scrollTop}>
           Back to top ↑
