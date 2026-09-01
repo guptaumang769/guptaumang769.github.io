@@ -72,9 +72,9 @@ export const projects: Project[] = [
     tags: ['Fundamentals'],
     tech: ['Spring Boot', 'Redis', 'Terraform'],
     repoUrl: `${GH}/url-shortener`,
-    demoUrl: `${GH}/url-shortener-ui`,
-    demoLabel: 'UI',
+    // demoUrl/demoLabel re-added once the url-shortener-ui repo is public.
     icon: '🔗',
+    status: 'live',
   },
   {
     id: 'upi-payment-system',

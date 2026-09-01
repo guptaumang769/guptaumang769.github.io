@@ -30,7 +30,12 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
           {icon}
         </span>
         <h3 className="card-title">{title}</h3>
-        {!isLive && (
+        {isLive ? (
+          <span className="live-badge" aria-label="Live">
+            <span className="live-dot" aria-hidden="true" />
+            Live
+          </span>
+        ) : (
           <span className="soon-badge" aria-label="Coming soon">
             Soon
           </span>
