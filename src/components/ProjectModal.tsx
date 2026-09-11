@@ -85,7 +85,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         </div>
 
         <div className="modal-links">
-          {project.status === 'live' ? (
+          {project.status === 'live' || project.status === 'in-progress' ? (
             <>
               <a
                 className="btn primary"
@@ -95,7 +95,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               >
                 <ExternalIcon /> Repo
               </a>
-              {project.demoUrl && (
+              {project.status === 'live' && project.demoUrl && (
                 <a
                   className="btn"
                   href={project.demoUrl}
@@ -108,7 +108,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             </>
           ) : (
             <span className="btn disabled" aria-disabled="true" title="Repository publishing soon">
-              🚧 Coming soon
+              Coming soon
             </span>
           )}
         </div>

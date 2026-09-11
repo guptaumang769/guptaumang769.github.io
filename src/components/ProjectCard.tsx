@@ -8,7 +8,7 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
   const { title, pitch, tech, icon } = project;
-  const isLive = project.status === 'live';
+  const { status = 'coming-soon' } = project;
   const reduce = useReducedMotion();
 
   return (
@@ -30,10 +30,14 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
           {icon}
         </span>
         <h3 className="card-title">{title}</h3>
-        {isLive ? (
+        {status === 'live' ? (
           <span className="live-badge" aria-label="Live">
             <span className="live-dot" aria-hidden="true" />
             Live
+          </span>
+        ) : status === 'in-progress' ? (
+          <span className="wip-badge" aria-label="In progress">
+            In Progress
           </span>
         ) : (
           <span className="soon-badge" aria-label="Coming soon">

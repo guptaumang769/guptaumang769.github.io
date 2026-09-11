@@ -30,7 +30,7 @@ export interface Project {
    * omit it (or set 'coming-soon') while the repo isn't public yet, and the UI shows a
    * "Coming soon" badge and disables its links. To launch a project, flip this to 'live'.
    */
-  status?: 'live' | 'coming-soon';
+  status?: 'live' | 'in-progress' | 'coming-soon';
 }
 
 const GH = 'https://github.com/guptaumang769';
@@ -95,6 +95,7 @@ export const projects: Project[] = [
     demoUrl: `${GH}/upi-ui`,
     demoLabel: 'UI',
     icon: '💸',
+    status: 'in-progress',
   },
   {
     id: 'social-platform',
@@ -169,6 +170,7 @@ export const projects: Project[] = [
     tech: ['Kafka', 'Redis', 'PostgreSQL', 'Spring Boot'],
     repoUrl: `${GH}/notification-system`,
     icon: '🔔',
+    status: 'live',
   },
   {
     id: 'video-streaming',
