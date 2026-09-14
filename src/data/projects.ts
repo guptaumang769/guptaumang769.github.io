@@ -95,7 +95,7 @@ export const projects: Project[] = [
     demoUrl: `${GH}/upi-ui`,
     demoLabel: 'UI',
     icon: '💸',
-    status: 'in-progress',
+    status: 'live',
   },
   {
     id: 'social-platform',

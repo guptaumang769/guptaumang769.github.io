@@ -20,7 +20,7 @@ const CORE: CoreSkill[] = [
   { name: 'Redis', note: 'caching & locks', level: 82 },
   { name: 'Kubernetes', note: 'containers & deploy', level: 72 },
   { name: 'AWS', note: 'cloud infra', level: 70 },
-  { name: 'React / TypeScript', note: 'this site + UIs', level: 68 },
+  { name: 'React / TypeScript', note: 'this site', level: 68 },
 ];
 
 // Supporting tooling — shown as chips rather than bars.
