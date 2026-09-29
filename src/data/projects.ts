@@ -134,6 +134,7 @@ export const projects: Project[] = [
     demoUrl: `${GH}/uber-ui`,
     demoLabel: 'Live map',
     icon: '🚕',
+    status: 'live',
   },
   {
     id: 'chat-system',
